@@ -1,0 +1,197 @@
+body{
+   margin: 0;
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+
+}
+
+section{
+    display: flex;
+    border: 3px solid rgb(193, 193, 193);
+    width: 140vh;
+    justify-content: center;
+    align-items: center;
+    padding: 4%;
+    gap:40px;
+    border-radius: 20px;
+    border-bottom: 17px solid rgb(193, 193, 193);
+    background-color: rgb(214, 210, 210);
+}
+
+.tela{
+    border: 8px solid  rgb(193, 193, 193);
+    padding: 10px;
+    width: 80vh;
+    border-radius: 3px;
+    background-color: white;
+
+}
+
+.teclado{
+    border: 2px solid rgb(31, 30, 30);
+    padding: 1px;
+    height: 55vh;
+    width: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgb(20, 20, 20);
+}
+
+.btn{
+    height: 50px;
+    width: 68px;
+    background-color: rgb(48, 48, 48);
+    color:white;
+    font-size: 25px;
+    margin: 2px;
+    border: none;
+    border-bottom: 8px solid rgb(29, 29, 29);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-0{
+    height: 50px;
+    width: 68px;
+    background-color: rgb(48, 48, 48);
+    color:white;
+    font-size: 25px;
+    margin: 2px;
+    border: none;
+    border-bottom: 8px solid rgb(29, 29, 29);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 79px;
+
+   
+}
+
+.btn-0:active{
+    transform: scale(0.90);
+}
+
+.btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 18px;
+    height: 35px;
+    padding: 20px;
+    gap: 10px;
+    margin-left: 10px;  
+}
+
+.btn:active{
+    transform: scale(0.90);
+}
+
+.branco{
+    border-radius: 3px;
+    padding: 10px;
+    border: none;
+    border-bottom: 7px solid rgb(224, 222, 222);
+    cursor: pointer;
+}
+
+
+.branco:active{
+    transform: scale(0.90);
+}
+
+
+.corrigir{
+    border-radius: 3px;
+    padding: 10px;
+    border: none;
+    background-color: chocolate;
+    border-bottom: 7px solid rgb(184, 91, 25);
+    cursor: pointer;
+}
+
+
+.corrigir:active{
+    transform: scale(0.90);
+}
+
+
+.confirmar{
+    border-radius: 3px;
+    padding: 12px;
+    height: 48px;
+    margin-top: -5px;
+    background-color: green;
+    border: none;
+    border-bottom: 7px solid rgb(30, 120, 30);
+    cursor: pointer;
+}
+
+
+.confirmar:active{
+    transform: scale(0.90);
+}
+
+/* configuração de tela */
+.campo {
+    width: 30px;
+    height: 40px;
+    font-size: 25px;
+    text-align: center;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.campo::-webkit-inner-spin-button,
+.campo::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.dados{
+    display: flex;
+}
+
+#foto{
+    margin-left: 16vh;
+    margin-top: -10vh;
+}
+
+.contador_votos{
+    margin-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 26px;
+    border: 4px solid rgb(214, 210, 210);
+    border-radius: 12px;
+    gap: 30vh;
+    width: 150vh;
+    background-color: rgb(193, 193, 193) ;
+}
+
+.img-branco{
+    border: 2px;
+    height: 90px;
+    width: 90px;
+    background-color: white;
+    margin-top: -40px;
+}
+
+.contador_votos p{
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.contador_votos h5{
+    font-size: 18px;
+}
+.contador_votos h4{
+    font-size: 28px;
+}
+
+

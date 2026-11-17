@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Urna-eletronica</title>
+</head>
+
+<body>
+    <header>
+        <h1>Seu voto, na pratica</h1>
+    </header>
+
+    <main>
+        <section id="votação" class="caixa">
+            <div class="tela">
+                <h4>SEU VOTO PARA</h4>
+
+                <div class="informcao">
+                    <p> <b>Presidente</b></p>
+
+                    <p>Numero:</p>
+                    <div class="campo-numero">
+                        <input id="numero"  class="campo" type="number"> 
+                        <input id="numero" class="campo" type="number">
+                    </div>
+
+                    <div class="dados">
+                        <div id="descricao" class="descricao">
+                           <h5 id="nome"></h5>
+                           <h5 id="partido"></h5>
+                           <h5 id="vice"></h5>
+                           <p id="mensagem"></p>
+                           <hr>
+                           <p>Digite o numero do seu candidato</p>
+                           <p>Ou aperte em BRANCO para votar em branco</p>
+                        </div>
+
+                        <div class="audio/img">
+                           <img id="foto" height="129px" alt="">
+                           <audio id="audio"></audio>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="teclado">
+                <P>SIMULAÇÃO ELEITORAL</P>
+
+                <div class="digitos">
+                    <button class="btn" data-value="1">1</button>
+                    <button class="btn" data-value="2">2</button>
+                    <button class="btn" data-value="3">3</button> <br>
+                    <button class="btn" data-value="4">4</button>
+                    <button class="btn" data-value="5">5</button>
+                    <button class="btn" data-value="6">6</button> <br>
+                    <button class="btn" data-value="7">7</button>
+                    <button class="btn" data-value="8">8</button>
+                    <button class="btn" data-value="9">9</button> <br>
+                    <button class="btn-0" data-value="0">0</button>
+                </div>
+
+                <div class="btns">
+                    <button id="branco" class="branco">BRANCO</button>
+                    <button id="corrigir" class="corrigir">CORRIGIR</button>
+                    <button id="confirmar" class="confirmar">CONFIRMA</button>
+                </div>
+
+
+            </div>
+
+        </section>
+    </main>
+
+    <div class="contador_votos">
+         <div class="tiririca">
+            <img src="img/tiririca.jpeg" height="90px" width="90px" alt="">
+            <h4>Tiririca</h4>
+            <h5>33</h5>
+            <p>votos: <span id="votos-tiririca"> 0</span></p> 
+        </div>
+
+        <div class="omarzinho">
+            <img src="img/omarzinho.jpeg" height="90px" width="90px" alt="">
+            <h4>Omarzinho</h4>
+            <h5>69</h5>
+            <p>votos: <span id="votos-omarzinho">0</span> </p> 
+        </div>
+
+        <div class="games_edu">
+
+            <img src="img/games_edu.jpeg" height="90px" width="90px" alt="">
+            <h4>Games_edu</h4>
+            <h5>20</h5>
+            <p>votos: <span id="votos-games-edu">0</span> </p> 
+
+        </div>
+
+        <div>
+            <div class="img-branco"></div>
+            <h4>Branco</h4>
+            <p>votos: <span id="embranco">0</span> </p> 
+        </div>
+
+
+
+
+    </div>
+    <script>
+        //inputs 
+       const inputs = document.querySelectorAll(".campo");
+
+       const botoesNumericos = document.querySelectorAll(".btn, .btn-0")
+
+
+       const botaoBranco = document.getElementById("branco")
+       const botaoCorrigir = document.getElementById("corrigir")
+       const botaoConfirmar = document.getElementById("confirmar")
+
+       const nome = document.getElementById("nome")
+       const partido = document.getElementById("partido")
+       const vice = document.getElementById("vice")
+       const foto = document.getElementById("foto")
+       const audio = document.getElementById("audio")
+       const voto = document.getElementById("voto")
+       const mensagem = document.getElementById("mensagem")
+
+       //variavel para o contador dos votos
+       const votosTiririca = document.getElementById("votos-tiririca")
+       const votosOmarzinho = document.getElementById("votos-omarzinho")
+       const votosGamesEdu = document.getElementById("votos-games-edu")
+       const votosEmbranco = document.getElementById("embranco")
+
+    
+
+       console.log(inputs)
+
+        //varivel de candidatos
+        let candidatos = [
+            { 
+                numero: 33,
+                nome:"Nome: Tiririca",
+                partido:"partido: Abestado",
+                vice: "Vice: tirolipa",
+                foto: "img/tiririca.jpeg",
+                audio: "audio/audio_tiririca.mpeg",
+                voto: 0
+            },
+
+            {
+                numero: 69,
+                nome:"Nome: Omarzinho Do Povão",
+                partido:"Partido: PMDT",
+                vice: "Vice: paulinho loko",
+                foto: "img/omarzinho.jpeg",
+                audio: "audio/omazinho.mp4",
+                voto: 0
+            },
+
+            {
+                numero: 20,
+                nome:"Nome: Games edu",
+                partido:"Danonão grosso",
+                vice: "mojang",
+                foto: "img/games_edu.jpeg",
+                audio: "audio/games_edu.mp4",
+                voto: 0
+            },
+
+            {
+                numero: "em branco",
+                voto: 0
+            }
+        ]
+
+        let candidatoSelecionado = null
+
+
+        //função para verificar o numero digitado
+        function verificarNumero(){
+
+            const numeroDigitado = inputs[0].value + inputs[1].value;
+
+            if (numeroDigitado.length < 2){
+                candidatoSelecionado = null
+
+                limparTela()
+
+                return
+        
+            }
+
+            //procurando candidatos
+
+            candidatoSelecionado = candidatos.find(function (candidato){
+                return candidato.numero === Number(numeroDigitado)
+            });
+
+            if(candidatoSelecionado){
+                nome.textContent = candidatoSelecionado.nome;
+                partido.textContent = candidatoSelecionado.partido;
+                vice.textContent = candidatoSelecionado.vice
+
+                foto.src = candidatoSelecionado.foto
+
+                mensagem.textContent = "Confira os dados do candidato";
+
+            } else{
+                limparTela()
+
+                mensagem.textContent = "Candidato não encontrado!"
+            }
+        }
+
+
+        //limpar tela
+        function limparTela(){
+            nome.textContent = ""
+            partido.textContent = ""
+            vice.textContent = ""
+
+            foto.removeAttribute("src")
+
+            audio.pause()
+            audio.removeAttribute("src")
+        }
+
+
+        //lendo os inputs
+        inputs.forEach((input, index) => {
+            input.addEventListener("input", function() {
+
+                //aceitar só numeros
+                this.value = this.value.replace(/\D/g, "").slice(0, 1);
+
+                verificarNumero()
+
+
+                //passar automaticamente para o proximo input
+
+                if (this.value !== "" && index < inputs.length -1){
+                    inputs[index + 1].focus()
+                }
+
+            })
+
+        })
+
+        //funcionamento do teclado numerico
+
+        botoesNumericos.forEach((botao) =>{
+
+            botao.addEventListener("click", function (){
+                const numero = this.dataset.value;
+
+                //encontrar o primeiro campo vazio
+
+                const campoVazio = Array.from(inputs).find(input => input.value === "")
+
+                if(campoVazio){
+                    campoVazio.value = numero;
+
+                    verificarNumero()
+
+                    const index = Array.from(inputs).indexOf(campoVazio)
+
+                    if(index < inputs.length -1){
+                        inputs[index + 1].focus()
+                    }
+                }
+            })
+        })
+
+        //botão corrigir
+
+        botaoCorrigir.addEventListener("click", function(){
+            inputs.forEach(input => input.value = "");
+
+            candidatoSelecionado = null
+
+            limparTela()
+
+            inputs[0].focus()
+        });
+
+        //atualizar votos
+
+        function atualizarVotos(){
+            votosTiririca.textContent = candidatos[0].voto
+
+            votosOmarzinho.textContent = candidatos[1].voto
+
+            votosGamesEdu.textContent = candidatos[2].voto
+
+            votosEmbranco.textContent = candidatos[3].voto
+
+        }
+
+
+
+        
+
+        //botão branco
+        botaoBranco.addEventListener("click", function(){
+            candidatos[3].voto++;
+
+            atualizarVotos()
+
+            candidatoSelecionado = null
+
+            limparTela();
+
+            inputs.forEach(input => input.value = "")
+
+            mensagem.textContent = "VOTO EM BRANCO"
+
+            console.log(candidatoSelecionado)
+
+        })
+
+
+
+        //botão confirmar
+
+        botaoConfirmar.addEventListener("click", function(){
+            if (!candidatoSelecionado){
+                mensagem.textContent = "Selecione um candidato válido!"
+
+                return
+            }
+
+            if(candidatoSelecionado.audio){
+                audio.src = candidatoSelecionado.audio;
+                audio.currentTime = 0
+                audio.play()
+                
+            }
+
+           mensagem.textContent = "Voto confirmado!"
+
+           candidatoSelecionado.voto++;
+
+            atualizarVotos() 
+        });
+        
+
+
+        
+
+
+
+
+    
+
+    </script>
+
+
+
+</body>
+
+</html>
